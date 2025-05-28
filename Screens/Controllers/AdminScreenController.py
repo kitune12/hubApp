@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 
 # <summary>
 # Admin画面制御クラス
@@ -22,5 +22,13 @@ class AdminScreenController:
     def _register_routes(self):
         @self.blueprint.route("/")
         def admin_home():
-            data = self.admin_model.get_data()
-            return render_template("AdminScreen.html", data=data)
+            # 仮の条件：管理画面は「アクセス禁止」状態
+            is_admin_access_allowed = False
+            
+            # アクセス権があればAdmin画面に遷移
+            if is_admin_access_allowed:
+                data = self.admin_model.get_data()
+                return render_template("AdminScreen.html", data=data)
+            # アクセス権が無ければHub画面にリダイレクト
+            else:
+                return redirect(url_for("hub.hub_home")) 
