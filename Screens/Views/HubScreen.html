@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head><title>{{ data.title }}</title></head>
+<head>
+    <title>{{ data.title }}</title>
+</head>
 <body>
     <h1>{{ data.message }}</h1>
-    <a href="/admin">管理者画面へ</a>
+<script>
+function pressButton(img) {
+    img.src = "{{ url_for('static', filename='img/button_pressed.png') }}";
+}
+
+function releaseButton(img) {
+    img.src = "{{ url_for('static', filename='img/button.png') }}";
+}
+</script>
+<form action="/admin" method="get">
+    <button type="submit" class="button-img">
+        <img src="{{ url_for('static', filename='img/button.png') }}"
+            alt="管理画面へ"
+            width="100"
+            onmousedown="pressButton(this)"
+            onmouseup="releaseButton(this)"
+            onmouseleave="releaseButton(this)">
+    </button>
+</form>
 </body>
 </html>
