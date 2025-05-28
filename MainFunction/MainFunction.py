@@ -19,13 +19,14 @@ class MainFunction:
         self.Hub_model = HubModel()
         self.admin_model = AdminModel()
 
-
         # コントローラー初期化にモデルを注入（依存注入）
         self.hub_controller = HubScreenController(app, self.Hub_model)
         self.admin_controller = AdminScreenController(app, self.admin_model)
 
         # 各ControllerのBlueprintを初期化・登録
+        # 	/hub/... にアクセスされたとき、HubScreenController の定義したルートに処理を渡す
         self.app.register_blueprint(self.hub_controller.blueprint)
+        # 	/admin/... にアクセスされたとき、AdminScreenController に処理を渡す
         self.app.register_blueprint(self.admin_controller.blueprint)
 
 
