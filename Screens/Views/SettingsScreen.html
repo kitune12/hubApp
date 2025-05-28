@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>設定</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="{{ 'bg-gray-900 text-white' if dark_mode else 'bg-white text-gray-800' }} p-10 font-sans">
+    <h1 class="text-2xl font-bold mb-6">設定画面</h1>
+
+    <form method="post">
+        <label class="flex items-center space-x-4">
+            <input type="checkbox" name="dark_mode" {% if dark_mode %}checked{% endif %} class="scale-125">
+            <span>ダークモードを有効にする</span>
+        </label>
+        <button type="submit" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500">保存</button>
+    </form>
+</body>
+</html>

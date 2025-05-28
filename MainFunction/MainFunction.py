@@ -1,6 +1,7 @@
 # Mainfunction/MainFunction.py
 from Screens.Controllers.HubScreenController import HubScreenController
 from Screens.Controllers.AdminScreenController import AdminScreenController
+from Screens.Controllers.SettingsScreenController import SettingsScreenController
 from MainFunction.Models.Admin_model import AdminModel
 from MainFunction.Models.Hub_model import HubModel
 
@@ -22,14 +23,15 @@ class MainFunction:
         # コントローラー初期化にモデルを注入（依存注入）
         self.hub_controller = HubScreenController(app, self.Hub_model)
         self.admin_controller = AdminScreenController(app, self.admin_model)
+        self.settings_controller = SettingsScreenController(app)
 
         # 各ControllerのBlueprintを初期化・登録
         # 	/hub/... にアクセスされたとき、HubScreenController の定義したルートに処理を渡す
         self.app.register_blueprint(self.hub_controller.blueprint)
         # 	/admin/... にアクセスされたとき、AdminScreenController に処理を渡す
         self.app.register_blueprint(self.admin_controller.blueprint)
-
-
+        # 	/settings/... にアクセスされたとき、AdminScreenController に処理を渡す
+        self.app.register_blueprint(self.settings_controller.blueprint)
 
 
 

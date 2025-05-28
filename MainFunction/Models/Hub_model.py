@@ -7,6 +7,6 @@ class HubModel:
     # <param name="self
     def get_data(self):
         return {
-            "title": "Hub画面",
+            "title": "XTSHubApp",
             "message": "こちらはHub画面です。"
         }

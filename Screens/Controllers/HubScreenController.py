@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session
 
 # <summary>
 # Hub画面制御クラス
@@ -23,4 +23,5 @@ class HubScreenController:
         @self.blueprint.route("/")
         def hub_home():
             data = self.Hub_model.get_data()
+            dark_mode = session.get("dark_mode", False)  # デフォルトFalse
             return render_template("HubScreen.html", data=data)

@@ -4,6 +4,8 @@ from MainFunction.MainFunction import MainFunction
 def create_app():
     # Flaskアプリ初期化
     app = Flask(__name__, template_folder="Screens/Views", static_folder="Screens/Views/static")
+    # セッション利用
+    app.secret_key = "your_secret_key"
 
     # MainFunctionでコントローラー登録 & モデル管理
     main_function = MainFunction(app)

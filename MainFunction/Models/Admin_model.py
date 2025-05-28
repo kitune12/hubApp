@@ -9,6 +9,6 @@ class AdminModel:
     # </summary>
     def get_data(self):
         return {
-            "title": "管理画面",
+            "title": "XTSHubApp",
             "message": "こちらは管理者画面です。"
         }

@@ -1,28 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
     <title>{{ data.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>{{ data.message }}</h1>
+<body class="bg-white text-gray-800 font-sans">
+
+
+<!-- ✅ ヘッダー（グレー） -->
+<header class="fixed top-0 left-0 right-0 h-16 bg-gray-50 shadow flex items-center px-6 z-10">
+    <h1 class="text-xl font-bold">XTSHub</h1>
+</header>
+
+<!-- ✅ レイアウト全体 -->
+<div class="flex pt-16 min-h-screen">
+
+    <!-- ✅ サイドバー（グレー） -->
+    <aside class="w-64 bg-gray-50 shadow h-screen">
+        <nav class="mt-6">
+            <ul>
+                <li class="px-6 py-3 hover:bg-gray-200"><a href="/hub">🏠 ホーム</a></li>
+                <li class="px-6 py-3 hover:bg-gray-200"><a href="/admin">🔧 管理画面</a></li>
+                <li class="px-6 py-3 hover:bg-gray-200"><a href="/settings">⚙️ 設定</a></li>
+                <li class="px-6 py-3 hover:bg-gray-200"><a href="#">🚪 ログアウト</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- ✅ メインコンテンツ（白） -->
+    <main class="flex-1 p-6 bg-white">
+        <h2 class="text-2xl font-semibold mb-6">{{ data.message }}</h2>
+
+        <!-- ✅ ボタン -->
+        <form action="/admin" method="get">
+            <button type="submit" class="transition transform active:scale-95">
+                <img src="{{ url_for('static', filename='img/button.png') }}"
+                    alt="管理画面へ"
+                    class="w-32 hover:brightness-90"
+                    onmousedown="pressButton(this)"
+                    onmouseup="releaseButton(this)"
+                    onmouseleave="releaseButton(this)">
+            </button>
+        </form>
+    </main>
+</div>
+
+<!-- ✅ ボタン画像切替JS -->
 <script>
 function pressButton(img) {
     img.src = "{{ url_for('static', filename='img/button_pressed.png') }}";
 }
-
 function releaseButton(img) {
     img.src = "{{ url_for('static', filename='img/button.png') }}";
 }
 </script>
-<form action="/admin" method="get">
-    <button type="submit" class="button-img">
-        <img src="{{ url_for('static', filename='img/button.png') }}"
-            alt="管理画面へ"
-            width="100"
-            onmousedown="pressButton(this)"
-            onmouseup="releaseButton(this)"
-            onmouseleave="releaseButton(this)">
-    </button>
-</form>
+
 </body>
 </html>
