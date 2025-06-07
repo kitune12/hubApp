@@ -4,57 +4,123 @@
     <meta charset="UTF-8">
     <title>{{ data.title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+      }
+      .icon-button {
+        background-color: #e5e7eb;
+        border: 1px solid #d1d5db;
+        border-radius: 1rem;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+      .icon-button:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+      }
+      .icon-button:active {
+        background-color: #9ca3af;
+        transform: scale(0.95);
+      }
+      .icon-image {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+      }
+    </style>
 </head>
-<body class="bg-white text-gray-800 font-sans">
+<body class="bg-white text-gray-800 font-['Inter']">
 
-
-<!-- ✅ ヘッダー（グレー） -->
-<header class="fixed top-0 left-0 right-0 h-16 bg-gray-50 shadow flex items-center px-6 z-10">
-    <h1 class="text-xl font-bold">XTSHub</h1>
+<header class="fixed top-0 left-0 right-0 h-16 bg-gray-900 text-white shadow flex items-center px-6 z-10">
+    <h1 class="text-xl font-bold">XTS Portal</h1>
 </header>
 
-<!-- ✅ レイアウト全体 -->
 <div class="flex pt-16 min-h-screen">
 
-    <!-- ✅ サイドバー（グレー） -->
-    <aside class="w-64 bg-gray-50 shadow h-screen">
+    <aside class="w-64 bg-gray-800 text-white shadow h-screen">
         <nav class="mt-6">
             <ul>
-                <li class="px-6 py-3 hover:bg-gray-200"><a href="/hub">🏠 ホーム</a></li>
-                <li class="px-6 py-3 hover:bg-gray-200"><a href="/admin">🔧 管理画面</a></li>
-                <li class="px-6 py-3 hover:bg-gray-200"><a href="/settings">⚙️ 設定</a></li>
-                <li class="px-6 py-3 hover:bg-gray-200"><a href="#">🚪 ログアウト</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/hub">🏠 ホーム</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/admin">🔧 管理画面</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/settings">⚙️ 設定</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="#">🚪 ログアウト</a></li>
             </ul>
         </nav>
     </aside>
 
-    <!-- ✅ メインコンテンツ（白） -->
     <main class="flex-1 p-6 bg-white">
         <h2 class="text-2xl font-semibold mb-6">{{ data.message }}</h2>
 
-        <!-- ✅ ボタン -->
-        <form action="/admin" method="get">
-            <button type="submit" class="transition transform active:scale-95">
-                <img src="{{ url_for('static', filename='img/button.png') }}"
-                    alt="管理画面へ"
-                    class="w-32 hover:brightness-90"
-                    onmousedown="pressButton(this)"
-                    onmouseup="releaseButton(this)"
-                    onmouseleave="releaseButton(this)">
-            </button>
-        </form>
+        <div class="grid grid-cols-5 gap-4">
+            <a href="/service1" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/Brycenアイコン.png" alt="Brycen" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">Brycen</p>
+            </a>
+            <a href="/service7" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/XTSアイコン.png" alt="XTS" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">XTS</p>
+            </a>
+            <a href="/service8" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/勤之助アイコン.png" alt="勤之助" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">勤之助</p>
+            </a>
+            <a href="/service5" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/NICollaboアイコン.png" alt="NICollabo" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">NICollabo</p>
+            </a>
+            <a href="/service2" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/Cybouzuアイコン.png" alt="Cybouzu" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">Cybouzu</p>
+            </a>
+            <a href="/service6" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/SCMMANAGERアイコン.png" alt="SCMMANAGER" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">SCMMANAGER</p>
+            </a>
+            <a href="/service3" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/Growiアイコン.png" alt="Growi" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">Growi</p>
+            </a>
+            <a href="/service4" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/LLMアイコン.png" alt="LLM" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">LLM</p>
+            </a>
+            <a href="/service10" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/情報アプリアイコン.png" alt="情報アプリ" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">情報アプリ</p>
+            </a>
+            <a href="/service9" class="flex flex-col items-center fade-in-up">
+                <div class="w-32 h-32 flex items-center justify-center icon-button cursor-pointer">
+                    <img src="/static/img/社内報アイコン.png" alt="社内報" class="icon-image">
+                </div>
+                <p class="mt-2 text-center text-base">社内報</p>
+            </a>
+        </div>
     </main>
 </div>
-
-<!-- ✅ ボタン画像切替JS -->
-<script>
-function pressButton(img) {
-    img.src = "{{ url_for('static', filename='img/button_pressed.png') }}";
-}
-function releaseButton(img) {
-    img.src = "{{ url_for('static', filename='img/button.png') }}";
-}
-</script>
 
 </body>
 </html>
