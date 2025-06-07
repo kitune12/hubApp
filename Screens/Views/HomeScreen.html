@@ -124,9 +124,29 @@ async function loadNews() {
     const newsList = document.getElementById('news-list');
     newsList.innerHTML = '';
 
+    // 🔽 日付の新しい順に並び替え
+    newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // 今日の日付をDateオブジェクトで取得
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 時刻部分を0にする（純粋な日付比較のため）
+
     newsData.forEach((item, index) => {
         const li = document.createElement('li');
-        li.className = "flex items-center justify-between border-b pb-2";
+
+        // item.dateをDate型に変換
+        const itemDate = new Date(item.date);
+        itemDate.setHours(0, 0, 0, 0); // 時刻を0にして比較用に揃える
+
+        // 今日と一致するか？
+        const isToday = itemDate.getTime() === today.getTime();
+
+        // クラスの決定
+        if (isToday) {
+            li.className = "flex items-center justify-between border-b pb-2 bg-yellow-100 font-bold"; // 🔶強調表示
+        } else {
+            li.className = "flex items-center justify-between border-b pb-2"; // 通常表示
+        }
 
         // URLが空文字列や未定義、nullの場合はテキストで表示
         let titleContent;
