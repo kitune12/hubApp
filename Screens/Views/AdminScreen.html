@@ -5,6 +5,30 @@
     <title>{{ data.title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .layout {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .sidebar {
+            flex-shrink: 0;
+            width: 16rem;
+            background-color: #2d3748;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body class="bg-white text-gray-800 font-['Inter']">
 
@@ -14,10 +38,10 @@
 </header>
 
 <!-- ✅ レイアウト全体 -->
-<div class="flex pt-16 min-h-screen">
+<div class="layout pt-16">
 
     <!-- ✅ サイドバー -->
-    <aside class="w-64 bg-gray-800 text-white shadow h-screen">
+    <aside class="sidebar shadow">
         <nav class="mt-6">
             <ul>
                 <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/home">🏠 Home</a></li>
@@ -30,10 +54,11 @@
     </aside>
 
     <!-- ✅ メインコンテンツ -->
-    <main class="flex-1 p-6 bg-white">
-        <h2 class="text-2xl font-semibold mb-6">{{ data.message }}</h2>
-
-        <a href="/hub" class="text-blue-600 hover:underline">Hub画面へ</a>
+    <main class="main-content p-6">
+        <section>
+            <h2 class="text-3xl font-bold mb-6">{{ data.message }}</h2>
+            <a href="/hub" class="text-blue-600 hover:underline">Hub画面へ</a>
+        </section>
     </main>
 </div>
 

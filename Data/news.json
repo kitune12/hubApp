@@ -1,14 +1,17 @@
 [
     {
-        "title": "ポータルリニューアル完了",
-        "date": "2025-06-01"
+        "title": "メンテナンスのお知らせ",
+        "date": "2025-06-10",
+        "url": "https://example.com/maintenance-info"
     },
     {
         "title": "来週、全社会議予定",
-        "date": "2025-06-15"
+        "date": "2025-06-15",
+        "url": "https://example.com/maintenance-info"
     },
     {
         "title": "ポータルリニューアル中",
-        "date": "2025-06-08"
+        "date": "2025-06-09",
+        "url": ""
     }
 ]

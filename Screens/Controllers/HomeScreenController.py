@@ -31,6 +31,14 @@ class HomeScreenController:
         def save_news():
             try:
                 new_item = request.get_json()
+                title = new_item.get('title')
+                date = new_item.get('date')
+                url = new_item.get('url', "")  # ← もしキーがなければ""にする
+
+                # titleとdateは必須、urlはオプション（空でもOK）
+                if not (title and date):
+                    return jsonify({"status": "error", "message": "Title and Date are required"}), 400
+
                 save_path = os.path.join(current_app.root_path, "Data", "news.json")
 
                 if os.path.exists(save_path):
@@ -39,7 +47,11 @@ class HomeScreenController:
                 else:
                     news_data = []
 
-                news_data.append(new_item)
+                news_data.append({
+                    "title": title,
+                    "date": date,
+                    "url": url  # 空文字列でもOKで保存
+                })
 
                 with open(save_path, "w", encoding="utf-8") as f:
                     json.dump(news_data, f, ensure_ascii=False, indent=4)
@@ -50,8 +62,7 @@ class HomeScreenController:
             except Exception as e:
                 print(f"【ERROR】保存中エラー: {e}")
                 return jsonify({"status": "error", "message": str(e)}), 500
-            
-        
+
         @self.blueprint.route("/delete_news", methods=["POST"])
         def delete_news():
             try:
@@ -63,11 +74,9 @@ class HomeScreenController:
                     with open(save_path, "r", encoding="utf-8") as f:
                         news_data = json.load(f)
 
-                    # 指定インデックスのデータを削除
                     if 0 <= index_to_delete < len(news_data):
                         deleted_item = news_data.pop(index_to_delete)
 
-                        # ファイルに上書き保存
                         with open(save_path, "w", encoding="utf-8") as f:
                             json.dump(news_data, f, ensure_ascii=False, indent=4)
 
