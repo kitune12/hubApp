@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800 font-['Inter']">
+
+<header class="fixed top-0 left-0 right-0 h-16 bg-gray-900 text-white shadow flex items-center px-6 z-10">
+    <h1 class="text-xl font-bold">XTS Portal</h1>
+</header>
+
+<div class="flex pt-16 min-h-screen">
+    <aside class="w-64 bg-gray-800 text-white shadow h-screen">
+        <nav class="mt-6">
+            <ul>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/home">🏠 Home</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/hub">🌐 hub</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/admin">🔧 Admin</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/settings">⚙️ 設定</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="#">🚪 ログアウト</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-6 bg-white space-y-8">
+        <section>
+            <h2 class="text-3xl font-bold mb-2">Welcome to XTS Portal</h2>
+            <p class="text-gray-600">ようこそ！今日も良い一日を。</p>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold mb-4">📢 最新のお知らせ</h3>
+            <ul id="news-list" class="text-gray-700 space-y-2">
+                <!-- ニュースデータはここに挿入される -->
+            </ul>
+
+            <form id="news-form" class="mt-4">
+                <input type="text" id="news-title" placeholder="お知らせ内容" class="border p-2 mr-2 rounded w-2/3">
+                <input type="date" id="news-date" class="border p-2 mr-2 rounded">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">追加</button>
+            </form>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold mb-4">🔗 よく使うリンク</h3>
+            <div class="flex space-x-4">
+                <a href="/hub" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Hub画面</a>
+                <a href="/admin" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">管理画面</a>
+                <a href="/settings" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">設定</a>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold mb-4">🗓️ カレンダー</h3>
+            <div class="bg-gray-100 p-4 rounded text-center">
+                <p class="text-gray-600">(ここにカレンダーが入ります)</p>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-semibold mb-4">🔍 ドキュメント検索</h3>
+            <input type="text" placeholder="キーワードを入力..." class="w-full p-2 border border-gray-300 rounded">
+        </section>
+    </main>
+</div>
+
+<script>
+const getNewsUrl = '/home/news';
+const saveNewsUrl = '/home/save_news';
+const deleteNewsUrl = '/home/delete_news';
+
+async function loadNews() {
+    const response = await fetch(getNewsUrl);
+    const newsData = await response.json();
+    const newsList = document.getElementById('news-list');
+    newsList.innerHTML = '';
+    newsData.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.className = "flex items-center justify-between border-b pb-2";
+        li.innerHTML = `<span>${item.title} (${item.date})</span>
+                        <button onclick="confirmDelete(${index})" class="ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">削除</button>`;
+        newsList.appendChild(li);
+    });
+}
+
+async function saveNews(newItem) {
+    await fetch(saveNewsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newItem)
+    });
+    loadNews();
+}
+
+async function deleteNews(index) {
+    await fetch(deleteNewsUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ index: index })
+    });
+    loadNews();
+}
+
+function confirmDelete(index) {
+    if (confirm('本当に削除しますか？')) {
+        deleteNews(index);
+    }
+}
+
+document.getElementById('news-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const title = document.getElementById('news-title').value;
+    const date = document.getElementById('news-date').value;
+    if (title && date) {
+        await saveNews({ title, date });
+        document.getElementById('news-title').value = '';
+        document.getElementById('news-date').value = '';
+    }
+});
+
+loadNews();
+</script>
+
+</body>
+</html>

@@ -1,8 +1,41 @@
 <!DOCTYPE html>
-<html>
-<head><title>{{ data.title }}</title></head>
-<body>
-    <h1>{{ data.message }}</h1>
-    <a href="/hub">Hub画面へ</a>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-gray-800 font-['Inter']">
+
+<!-- ✅ ヘッダー -->
+<header class="fixed top-0 left-0 right-0 h-16 bg-gray-900 text-white shadow flex items-center px-6 z-10">
+    <h1 class="text-xl font-bold">XTS Portal</h1>
+</header>
+
+<!-- ✅ レイアウト全体 -->
+<div class="flex pt-16 min-h-screen">
+
+    <!-- ✅ サイドバー -->
+    <aside class="w-64 bg-gray-800 text-white shadow h-screen">
+        <nav class="mt-6">
+            <ul>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/home">🏠 Home</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/hub">🌐 hub</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/admin">🔧 Admin</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="/settings">⚙️ 設定</a></li>
+                <li class="px-6 py-3 hover:bg-gray-700 cursor-pointer"><a href="#">🚪 ログアウト</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- ✅ メインコンテンツ -->
+    <main class="flex-1 p-6 bg-white">
+        <h2 class="text-2xl font-semibold mb-6">{{ data.message }}</h2>
+
+        <a href="/hub" class="text-blue-600 hover:underline">Hub画面へ</a>
+    </main>
+</div>
+
 </body>
 </html>

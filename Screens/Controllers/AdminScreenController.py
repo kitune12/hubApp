@@ -23,7 +23,7 @@ class AdminScreenController:
         @self.blueprint.route("/")
         def admin_home():
             # 仮の条件：管理画面は「アクセス禁止」状態
-            is_admin_access_allowed = False
+            is_admin_access_allowed = True
             
             # アクセス権があればAdmin画面に遷移
             if is_admin_access_allowed:
